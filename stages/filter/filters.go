@@ -29,19 +29,6 @@ func DoFunc(c *slurp.C, do func(*slurp.C, slurp.File) slurp.File) slurp.Stage {
 	}
 }
 
-//For The Glory of Debugging.
-func List(c *slurp.C) slurp.Stage {
-	return DoFunc(c, func(c *slurp.C, f slurp.File) slurp.File {
-		s, err := f.Stat()
-		if err != nil {
-			c.Error("Can't get File Stat name.")
-		} else {
-			c.Infof("slurp.File: %+v Name: %s", f, s.Name())
-		}
-		return f
-	})
-}
-
 //Filters out files based on a pattern, if they match,
 // they will be closed, otherwise sent to the output channel.
 func Filter(c *slurp.C, pattern string) slurp.Stage {

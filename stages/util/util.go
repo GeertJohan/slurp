@@ -43,3 +43,18 @@ func Concat(c *slurp.C, name string) slurp.Stage {
 		out <- sf
 	}
 }
+
+//For The Glory of Debugging.
+func List(c *slurp.C) slurp.Stage {
+	return func(files <-chan slurp.File, out chan<- slurp.File) {
+		for f := range files {
+			s, err := f.Stat()
+			if err != nil {
+				c.Error("Can't get File Stat name.")
+			} else {
+				c.Infof("slurp.File: %+v Name: %s", f, s.Name())
+			}
+			out <- f
+		}
+	}
+}

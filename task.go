@@ -28,7 +28,7 @@ func (t *task) run(c *C) error {
 	//if t.called {
 	//		return nil
 	//	}
-	c.Info("Starting.")
+	c.Infof("Starting %s.", t.name)
 
 	failed := make(chan string)
 	cancel := make(chan struct{}, len(t.deps))
@@ -60,8 +60,8 @@ func (t *task) run(c *C) error {
 	var failedjobs []string
 
 	for job := range failed {
-			cancel <- struct{}{}
-			failedjobs = append(failedjobs, job)
+		cancel <- struct{}{}
+		failedjobs = append(failedjobs, job)
 	}
 
 	if len(failedjobs) > 0 {
@@ -71,7 +71,7 @@ func (t *task) run(c *C) error {
 	//t.called = true
 	err := t.task(c)
 	if err == nil {
-		c.Info("Done.")
+		c.Infof("Done %s.", t.name)
 	}
 
 	return err

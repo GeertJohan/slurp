@@ -14,7 +14,7 @@ import (
 
   "github.com/omeid/slurp"
 
-  client "{{ . }}/tmp"
+  client "{{ . }}"
 )
 
 func init() {

@@ -35,6 +35,8 @@ func Get(url string) (slurp.File, error) {
 		return file, fmt.Errorf("%s (%s)", resp.Status, url)
 	}
 
+	file.Reader = resp.Body
+
 	name := name(url, resp)
 
 	Stat := &slurp.FileInfo{}
